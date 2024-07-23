@@ -74,7 +74,15 @@
                 <a href="">Blog</a>
                 <ul>
                   <li><a href="{% url 'blog:index' %}">Blog Home</a></li>
-                  <li><a href="{% url 'blog:single' %}">Blog Single</a></li>
+                  <ul>
+                    {% for post in posts %}
+                    <li>
+                      <a href="{% url 'blog:single' pid=post.id %}"
+                        >{{ post.title }}</a
+                      >
+                    </li>
+                    {% endfor %}
+                  </ul>
                 </ul>
               </li>
               <li><a href="{% url 'website:contact' %}">Contact</a></li>

@@ -15,7 +15,7 @@ class Post(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     
     class Meta:
-        ordering = ['-created_date']
+        ordering = ['created_date']
         #change the name of admin site for table
         #verbose_name = "پست"
         #verbose_name_plural = "پست "
