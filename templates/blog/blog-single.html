@@ -87,6 +87,7 @@
                     {% if prev_post %}
                     <a href="{% url 'blog:single' prev_post.id %}">
                       &laquo; Previous: {{ prev_post.title }}
+
                     </a>
                     {% else %}
                     <p>No previous post available.</p>
