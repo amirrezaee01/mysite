@@ -8,8 +8,7 @@
         <h1 class="text-white">{{post.title}}</h1>
         <p class="text-white link-nav">
           <a href="{% url 'website:index' %}">Home </a>
-          <span class="lnr lnr-arrow-right"></span
-          ><a href="{% url 'blog:index' %}">Blog </a>
+          <span class="lnr lnr-arrow-right"></span><a href="{% url 'blog:index' %}">Blog </a>
           <span class="lnr lnr-arrow-right"></span>
           {{post.title}}
         </p>
@@ -72,50 +71,46 @@
         </div>
         <div class="navigation-area">
           <div class="row">
-            <div
-              class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center"
-            >
+            <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
               <div class="thumb">
-                <a href="#"
-                  ><img
-                    class="img-fluid"
-                    src="{% static 'img/blog/prev.jpg' %}"
-                    alt=""
-                /></a>
+                <a href="#"><img class="img-fluid" src="{% static 'img/blog/prev.jpg' %}" alt="" /></a>
               </div>
               <div class="arrow">
-                <a href="#"
-                  ><span class="lnr text-white lnr-arrow-left"></span
-                ></a>
+                <a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>
               </div>
-              <div class="detials">
-                <p>Prev Post</p>
-                <a href="#">
-                  <h4>Space The Final Frontier</h4>
-                </a>
+              <!-- Container for Previous and Next Post Navigation -->
+              <!-- Container for Previous and Next Post Navigation -->
+              <div class="row">
+                <!-- Previous Post Navigation -->
+                <div class="col-lg-6 col-md-6 col-12 d-flex justify-content-start mb-3">
+                  <div class="details">
+                    {% if prev_post %}
+                    <a href="{% url 'blog:single' prev_post.id %}">
+                      &laquo; Previous: {{ prev_post.title }}
+                    </a>
+                    {% else %}
+                    <p>No previous post available.</p>
+                    {% endif %}
+                  </div>
+                </div>
+
+                <!-- Spacer with Flex to push Next Post Navigation to the right -->
+                <div class="col-lg-6 col-md-6 col-12 d-flex justify-content-end mb-3">
+                  <div class="details">
+                    {% if next_post %}
+                    <a href="{% url 'blog:single' next_post.id %}">
+                      Next: {{ next_post.title }} &raquo;
+                    </a>
+                    {% else %}
+                    <p>No next post available.</p>
+                    {% endif %}
+                  </div>
+                </div>
               </div>
-            </div>
-            <div
-              class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center"
-            >
-              <div class="detials">
-                <p>Next Post</p>
-                <a href="#">
-                  <h4>Telescopes 101</h4>
-                </a>
-              </div>
-              <div class="arrow">
-                <a href="#"
-                  ><span class="lnr text-white lnr-arrow-right"></span
-                ></a>
-              </div>
+
+
               <div class="thumb">
-                <a href="#"
-                  ><img
-                    class="img-fluid"
-                    src="{% static 'img/blog/next.jpg' %}"
-                    alt=""
-                /></a>
+                <a href="#"><img class="img-fluid" src="{% static 'img/blog/next.jpg' %}" alt="" /></a>
               </div>
             </div>
           </div>
@@ -213,46 +208,21 @@
           <form>
             <div class="form-group form-inline">
               <div class="form-group col-lg-6 col-md-12 name">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  placeholder="Enter Name"
-                  onfocus="this.placeholder = ''"
-                  onblur="this.placeholder = 'Enter Name'"
-                />
+                <input type="text" class="form-control" id="name" placeholder="Enter Name"
+                  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'" />
               </div>
               <div class="form-group col-lg-6 col-md-12 email">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  placeholder="Enter email address"
-                  onfocus="this.placeholder = ''"
-                  onblur="this.placeholder = 'Enter email address'"
-                />
+                <input type="email" class="form-control" id="email" placeholder="Enter email address"
+                  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" />
               </div>
             </div>
             <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                id="subject"
-                placeholder="Subject"
-                onfocus="this.placeholder = ''"
-                onblur="this.placeholder = 'Subject'"
-              />
+              <input type="text" class="form-control" id="subject" placeholder="Subject" onfocus="this.placeholder = ''"
+                onblur="this.placeholder = 'Subject'" />
             </div>
             <div class="form-group">
-              <textarea
-                class="form-control mb-10"
-                rows="5"
-                name="message"
-                placeholder="Messege"
-                onfocus="this.placeholder = ''"
-                onblur="this.placeholder = 'Messege'"
-                required=""
-              ></textarea>
+              <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege"
+                onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
             </div>
             <a href="#" class="primary-btn text-uppercase">Post Comment</a>
           </form>
@@ -262,13 +232,8 @@
         <div class="widget-wrap">
           <div class="single-sidebar-widget search-widget">
             <form class="search-form" action="#">
-              <input
-                placeholder="Search Posts"
-                name="search"
-                type="text"
-                onfocus="this.placeholder = ''"
-                onblur="this.placeholder = 'Search Posts'"
-              />
+              <input placeholder="Search Posts" name="search" type="text" onfocus="this.placeholder = ''"
+                onblur="this.placeholder = 'Search Posts'" />
               <button type="submit"><i class="fa fa-search"></i></button>
             </form>
           </div>
@@ -304,11 +269,7 @@
             <div class="popular-post-list">
               <div class="single-post-list d-flex flex-row align-items-center">
                 <div class="thumb">
-                  <img
-                    class="img-fluid"
-                    src="{% static 'img/blog/pp1.jpg' %}"
-                    alt=""
-                  />
+                  <img class="img-fluid" src="{% static 'img/blog/pp1.jpg' %}" alt="" />
                 </div>
                 <div class="details">
                   <a href="blog-single.html">
@@ -319,11 +280,7 @@
               </div>
               <div class="single-post-list d-flex flex-row align-items-center">
                 <div class="thumb">
-                  <img
-                    class="img-fluid"
-                    src="{% static 'img/blog/pp2.jpg' %}"
-                    alt=""
-                  />
+                  <img class="img-fluid" src="{% static 'img/blog/pp2.jpg' %}" alt="" />
                 </div>
                 <div class="details">
                   <a href="blog-single.html">
@@ -334,11 +291,7 @@
               </div>
               <div class="single-post-list d-flex flex-row align-items-center">
                 <div class="thumb">
-                  <img
-                    class="img-fluid"
-                    src="{% static 'img/blog/pp3.jpg' %}"
-                    alt=""
-                  />
+                  <img class="img-fluid" src="{% static 'img/blog/pp3.jpg' %}" alt="" />
                 </div>
                 <div class="details">
                   <a href="blog-single.html">
@@ -349,11 +302,7 @@
               </div>
               <div class="single-post-list d-flex flex-row align-items-center">
                 <div class="thumb">
-                  <img
-                    class="img-fluid"
-                    src="{% static 'img/blog/pp4.jpg' %}"
-                    alt=""
-                  />
+                  <img class="img-fluid" src="{% static 'img/blog/pp4.jpg' %}" alt="" />
                 </div>
                 <div class="details">
                   <a href="blog-single.html">
@@ -365,12 +314,7 @@
             </div>
           </div>
           <div class="single-sidebar-widget ads-widget">
-            <a href="#"
-              ><img
-                class="img-fluid"
-                src="{% static 'img/blog/ads-banner.jpg' %}"
-                alt=""
-            /></a>
+            <a href="#"><img class="img-fluid" src="{% static 'img/blog/ads-banner.jpg' %}" alt="" /></a>
           </div>
           <div class="single-sidebar-widget post-category-widget">
             <h4 class="category-title">Post Catgories</h4>
@@ -433,14 +377,8 @@
                       <i class="fa fa-envelope" aria-hidden="true"></i>
                     </div>
                   </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="inlineFormInputGroup"
-                    placeholder="Enter email"
-                    onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = 'Enter email'"
-                  />
+                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email"
+                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'" />
                 </div>
               </div>
               <a href="#" class="bbtns">Subcribe</a>
