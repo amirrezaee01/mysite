@@ -25,9 +25,25 @@ def latestpost():
 
 @register.inclusion_tag('blog/blog-post-categories.html')
 def postcategories():
+    # Retrieve all posts with status 1 (published)
     posts = Post.objects.filter(status=1)
+    
+    # Retrieve all categories
     categories = Catagory.objects.all()
+    
+    # Initialize an empty dictionary to store category names and their corresponding post counts
     cat_dict = {}
+    
+    # Iterate through each category
     for name in categories:
-        cat_dict[name]=posts.filter(category=name).count()
-    return {"categories":cat_dict}
+        # Filter the posts queryset by the current category
+        filtered_posts = posts.filter(category=name)
+        
+        # Count the number of posts in the filtered queryset
+        count = filtered_posts.count()
+        
+        # Add the category and its post count to the dictionary
+        cat_dict[name] = count
+    
+    # Return the dictionary of categories and post counts to the template
+    return {"categories": cat_dict}
