@@ -9,6 +9,7 @@ urlpatterns = [
     path('category/<str:cat_name>/',blog_view,name='category'),
     #this name use for 'url' you use for instance blog:category
     path('author/<str:author_firstname>/',blog_view,name='author'),
+    path('search',blog_search,name='search'),
     path("test",test,name='test')
     
 ]
