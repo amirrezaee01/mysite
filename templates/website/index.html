@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load website_tags %}
 {% block content %}
 <!-- start banner Area -->
 <section class="banner-area relative">
@@ -184,8 +184,9 @@
 
 <!-- Start blog Area -->
 
-{% include "website/latest_post.html" %}
+{% latestpost %}
 
+<!-- end blog Area -->
 
 
 {% endblock %}
