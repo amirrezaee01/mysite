@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from blog.models import Post
-from django.contrib.auth.models import User
 from django.utils import timezone
+from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 
 def blog_view(request,cat_name=None,author_firstname=None):
     now = timezone.now()
@@ -10,8 +10,18 @@ def blog_view(request,cat_name=None,author_firstname=None):
         posts = posts.filter(category__name=cat_name)
     if author_firstname:
         posts = posts.filter(author__first_name = author_firstname)
+    posts = Paginator(posts,3)
+    try:
+        page_number = request.GET.get('page')
+        posts = posts.get_page(page_number)
+    except PageNotAnInteger:
+        posts = posts.get_page(1)
+    except EmptyPage:
+        posts = posts.get_page(2)
+        
     context = {'posts':posts}
     return render(request, 'blog/blog-home.html',context)
+
 
 def blog_single(request, pid):
     now = timezone.now()
