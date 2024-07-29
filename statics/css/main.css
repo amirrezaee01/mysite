@@ -3709,7 +3709,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .widget-wrap .popular-post-widget .popular-post-list .thumb img {
-  width: 100%;
+  width: 100px;
   max-width: 100px;
 }
 

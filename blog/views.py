@@ -17,7 +17,7 @@ def blog_view(request,cat_name=None,author_firstname=None):
     except PageNotAnInteger:
         posts = posts.get_page(1)
     except EmptyPage:
-        posts = posts.get_page(2)
+        posts = posts.get_page(1)
         
     context = {'posts':posts}
     return render(request, 'blog/blog-home.html',context)
