@@ -1,8 +1,11 @@
 from django import template
 register = template.Library()
 from blog.models import Post   
+from django.utils import timezone
+
 
 @register.inclusion_tag('website/latest_post.html')
 def latestpost():
-    posts = Post.objects.filter(status=1).order_by('published_date')#[:3]
+    now = timezone.now()
+    posts = Post.objects.filter(published_date__lte=now,status=1).order_by('published_date')#[:3]
     return{'posts':posts}
