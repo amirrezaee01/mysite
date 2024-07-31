@@ -122,7 +122,7 @@
               mediocre print and graphic output.
             </p>
             <div id="mc_embed_signup">
-              <form action="{% url 'website:Newsletter' %}" method="post" class="subscription relative">
+              <form action="{% url 'website:newsletter' %}" method="post" class="subscription relative">
                 {% csrf_token %}
                 <div class="input-group d-flex flex-row">
                   <input name="email" placeholder="Email Address" onfocus="this.placeholder = ''"
