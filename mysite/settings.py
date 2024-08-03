@@ -40,9 +40,19 @@ INSTALLED_APPS = [
     'website.apps.WebsiteConfig',
     'blog.apps.BlogConfig', 
     'django.contrib.humanize',
-    'django_extensions'
-]
+    'django_extensions',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'robots',
+    'debug_toolbar'
+    
 
+]
+#site freamwork
+SITE_ID = 2
+#robots
+ROBOTS_USE_HOST = False
+ 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,6 +61,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+
+    
+    
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -66,6 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
             ],
         },
     },
@@ -133,3 +148,8 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
