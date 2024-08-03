@@ -3,13 +3,18 @@ from blog.models import Post
 from django.utils import timezone
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 
-def blog_view(request,cat_name=None,author_firstname=None):
+def blog_view(request, **kwargs):
     now = timezone.now()
     posts = Post.objects.filter(published_date__lte=now, status=1)
-    if cat_name:
-        posts = posts.filter(category__name=cat_name)
-    if author_firstname:
-        posts = posts.filter(author__first_name = author_firstname)
+    
+    if kwargs.get('cat_name'):
+        posts = posts.filter(category__name=kwargs['cat_name'])
+    if kwargs.get('author_firstname'):
+        posts = posts.filter(author__first_name=kwargs['author_firstname'])
+    if kwargs.get('tag_name'):
+        posts = posts.filter(tags__name__in=[kwargs['tag_name']])
+        
+        
     posts = Paginator(posts,3)
     try:
         page_number = request.GET.get('page')
