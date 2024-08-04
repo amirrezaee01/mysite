@@ -1,7 +1,10 @@
 from django.shortcuts import render,get_object_or_404
-from blog.models import Post
+from blog.models import Post,Comment
 from django.utils import timezone
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
+from blog.forms import CommentForm
+from django.contrib import messages
+
 
 def blog_view(request, **kwargs):
     now = timezone.now()
@@ -29,12 +32,19 @@ def blog_view(request, **kwargs):
 
 
 def blog_single(request, pid):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()        
+            messages.add_message(request, messages.SUCCESS, 'Your comment was submitted correctly.')
+        else:
+            messages.add_message(request, messages.ERROR, 'Your comment did not submit correctly.')
+    
     now = timezone.now()
     
     # Fetch the specific post
     post = get_object_or_404(Post, id=pid, status=1, published_date__lte=now)
     
-    # Increment the view count
     post.counted_views += 1
     post.save()
     
@@ -48,13 +58,15 @@ def blog_single(request, pid):
     # Determine the previous and next post
     prev_post = posts[current_index - 1] if current_index > 0 else None
     next_post = posts[current_index + 1] if current_index < len(post_ids) - 1 else None
-    
+    comments = Comment.objects.filter(post=post.id,approved =True)
+    form = CommentForm()
     context = {
         'post': post,
         'prev_post': prev_post,
         'next_post': next_post,
+        'comments' : comments,
+        'form'     : form,
     }
-    
     return render(request, 'blog/blog-single.html', context)
 
 def test(request):
