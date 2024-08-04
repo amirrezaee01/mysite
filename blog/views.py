@@ -31,26 +31,23 @@ def blog_view(request, **kwargs):
 def blog_single(request, pid):
     now = timezone.now()
     
-    posts = Post.objects.filter(status=1, published_date__lte=now).order_by('id')
+    # Fetch the specific post
+    post = get_object_or_404(Post, id=pid, status=1, published_date__lte=now)
     
-    post = get_object_or_404(posts, id=pid)
-    
+    # Increment the view count
     post.counted_views += 1
     post.save()
     
-    post_ids = [post.id for post in posts]
+    # Fetch the ordered posts
+    posts = Post.objects.filter(status=1, published_date__lte=now).order_by('published_date')
+    
+    # Get the list of post IDs
+    post_ids = list(posts.values_list('id', flat=True))
     current_index = post_ids.index(post.id)
     
-    prev_post = None
-    next_post = None
-    
-    if current_index > 0:
-        prev_post_id = post_ids[current_index - 1]
-        prev_post = get_object_or_404(Post, id=prev_post_id, status=1, published_date__lte=now)
-    
-    if current_index < len(post_ids) - 1:
-        next_post_id = post_ids[current_index + 1]
-        next_post = get_object_or_404(Post, id=next_post_id, status=1, published_date__lte=now)
+    # Determine the previous and next post
+    prev_post = posts[current_index - 1] if current_index > 0 else None
+    next_post = posts[current_index + 1] if current_index < len(post_ids) - 1 else None
     
     context = {
         'post': post,
@@ -59,7 +56,6 @@ def blog_single(request, pid):
     }
     
     return render(request, 'blog/blog-single.html', context)
-
 
 def test(request):
     return render(request,'test.html',)
