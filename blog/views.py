@@ -4,8 +4,11 @@ from django.utils import timezone
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from blog.forms import CommentForm
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
+ 
 def blog_view(request, **kwargs):
     now = timezone.now()
     posts = Post.objects.filter(published_date__lte=now, status=1)
@@ -35,16 +38,25 @@ def blog_single(request, pid):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            form.save()        
-            messages.add_message(request, messages.SUCCESS, 'Your comment was submitted correctly.')
+            comment = form.save(commit=False)
+            comment.post = get_object_or_404(Post, id=pid)
+            comment.save()
+            messages.success(request, 'Your comment was submitted successfully.')
         else:
-            messages.add_message(request, messages.ERROR, 'Your comment did not submit correctly.')
-    
+            messages.error(request, 'There was an error with your submission. Please correct the errors below.')
+
     now = timezone.now()
     
     # Fetch the specific post
     post = get_object_or_404(Post, id=pid, status=1, published_date__lte=now)
     
+    # Check if login is required
+    if post.login_require:
+        if not request.user.is_authenticated:
+            # Redirect to login page if user is not authenticated
+            return HttpResponseRedirect(reverse("accounts:login"))
+    
+    # Increase view count
     post.counted_views += 1
     post.save()
     
@@ -58,17 +70,18 @@ def blog_single(request, pid):
     # Determine the previous and next post
     prev_post = posts[current_index - 1] if current_index > 0 else None
     next_post = posts[current_index + 1] if current_index < len(post_ids) - 1 else None
-    comments = Comment.objects.filter(post=post.id,approved =True)
+    
+    comments = Comment.objects.filter(post=post.id, approved=True)
     form = CommentForm()
+    
     context = {
         'post': post,
         'prev_post': prev_post,
         'next_post': next_post,
-        'comments' : comments,
-        'form'     : form,
+        'comments': comments,
+        'form': form,
     }
     return render(request, 'blog/blog-single.html', context)
-
 def test(request):
     return render(request,'test.html',)
 
