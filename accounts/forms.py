@@ -16,10 +16,7 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
         
-class CustomAuthenticationForm(AuthenticationForm):
-    email = forms.EmailField(required=True)
 
-    class meta:
-        model = User
-        fields = 'username', 'email', 'password1'
-    
+class CustomAuthenticationForm(forms.Form):
+    identifier = forms.CharField(label="Username or Email", required=True)
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
