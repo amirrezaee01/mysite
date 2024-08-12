@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from accounts.forms import CustomUserCreationForm, CustomAuthenticationForm
+from django.core.mail import send_mail
+from django.conf import settings
 
 User = get_user_model()
 
