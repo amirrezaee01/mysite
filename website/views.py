@@ -42,13 +42,5 @@ def newsletter_view(request):
         
     
 
-def test_view(request):
-    if request.method == "POST":
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            form.save() 
-            return HttpResponse ("Done")
-        else:
-            return HttpResponse ("Not valiid")
-
-    return render(request, 'website/test.html',{'form':form})
+def upgrade_view(request):
+    return render(request,'index.html')

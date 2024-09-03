@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>upgarde</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- font-awesome -->
+	<link href="{% static 'fonts/font-awesome/css/font-awesome.min.css '%}" rel="stylesheet">
+	<!-- Style CSS -->
+	<link href="{% static 'css/style.css '%}" rel="stylesheet">
+</head>
+
+<body>
+	<section class="wraper">
+		<header class="header">
+			<h1>PROXIMITY</h1>
+			<h2>بهترین صفحه ایی که شما به دنبال آن هستید.</h2>
+		</header>
+		<!-- .header -->
+		<section class="countdown-wrapper">
+			<ul id="back-countdiown">
+				<li>
+					<span class="seconds">00</span>
+					<p class="fnt">ثانیه</p>
+				</li>
+				<li>
+					<span class="minutes">00</span>
+					<p class="fnt">دقیقه </p>
+				</li>
+				<li>
+					<span class="hours">00</span>
+					<p class="fnt">ساعت</p>
+				</li>
+				<li>
+					<span class="days">00</span>
+					<p class="fnt">روز</p>
+				</li>
+			</ul><!-- #back-countdiown -->
+		</section><!-- .countdown-wrapper -->
+		<section class="subscribe">
+			<form class="subscribe-form" role="form" method="">
+				<input type="email" class="form-control" id="exampleInputEmail1" placeholder="ایمیل خود را وارد کنید">
+				<input type="submit" value="من را خبر کن" class="form-control">
+			</form>
+		</section><!-- .subscribe-->
+
+		<footer class="footer">
+			<section class="social-links">
+				<ul>
+					<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+					<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+					<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+					<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+					<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+				</ul>
+			</section><!-- /.social-links -->
+			<ul class="copyright">
+				<li dir="ltr">&copy; Proximity. All rights reserved.</li>
+				<li>Design By: <a href="http://uicookies.com">uiCookies</a></li>
+			</ul>
+			<ul class="copyright">
+				<li>فارسی و راست چین شده توسط : <a href="http://webrubik.com">وب روبیک</a></li>
+			</ul>
+		</footer>
+	</section>
+	<div class="fullscreen-bg">
+		<video loop muted autoplay poster="{% static 'img/videoframe.jpg '%}" class="fullscreen-bg__video">
+			<source src="{% static 'img/video-bg.mp4 '%}" type="video/mp4">
+		</video>
+	</div> <!-- .fullscreen-bg -->
+	<!-- Script -->
+	<script src="{% static 'js/jquery-2.1.4.min.js '%}"></script>
+	<script src="{% static 'js/coundown-timer.js '%}"></script>
+	<script src="{% static 'js/scripts.js '%}"></script>
+</body><!-- This template has been downloaded from Webrubik.com -->
+
+</html>
