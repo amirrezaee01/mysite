@@ -42,5 +42,3 @@ def newsletter_view(request):
         
     
 
-def upgrade_view(request):
-    return render(request,'index.html')
