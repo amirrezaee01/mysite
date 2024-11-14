@@ -4,7 +4,7 @@ from website.views import *
 app_name = "website"
 
 urlpatterns = [
-    path('',upgrade_view,name='upgrade'),
+    
     
     path('',index_view,name='index'),
     path('about', about_view,name='about'), 
